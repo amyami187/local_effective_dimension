@@ -133,7 +133,6 @@ for j in range(10):
             representation=PMatKFAC,
             device='cpu',
             n_output=10)
-
     n = 60000
     eigs = FI.get_eig_F()
     tr = FI.trace().detach().numpy()
@@ -146,16 +145,7 @@ for j in range(10):
     effdim_norm.append(norm_ed)
     print('effective dimension: ', ed)
     print('normalised effective dimension: ', ed / d)
-
-    ## OLD CODE WITH FULL FIM
-    #n = torch.tensor(n)
-    #FI = d * FI.get_dense_tensor() / FI.trace()
-    #sgn, value = torch.slogdet(torch.eye(d) + const * FI)
-    #ed = value / np.log(const)
-    #ed = ed.item()
     print('###########################################################################################################')
-
 np.save('ed_norm_cifar_rand20.npy', effdim_norm)
 np.save('train_error_cifar_rand20.npy', train_error)
 np.save('test_error_cifar_rand20.npy', test_error)
-
