@@ -146,16 +146,8 @@ for j in range(10):
     effdim_norm.append(norm_ed)
     print('effective dimension: ', ed)
     print('normalised effective dimension: ', ed / d)
-
-    ## OLD CODE WITH FULL FIM
-    #n = torch.tensor(n)
-    #FI = d * FI.get_dense_tensor() / FI.trace()
-    #sgn, value = torch.slogdet(torch.eye(d) + const * FI)
-    #ed = value / np.log(const)
-    #ed = ed.item()
     print('###########################################################################################################')
 
 np.save('ed_norm_cifar_rand80.npy', effdim_norm)
 np.save('train_error_cifar_rand80.npy', train_error)
 np.save('test_error_cifar_rand80.npy', test_error)
-
