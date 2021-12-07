@@ -94,7 +94,7 @@ def load_data(random=0, MNIST=False):
 def compute_and_save_local_ed(size, file_extension=None, MNIST=False):
     """
     Trains a feedforward neural network with a specified size on the specified data set. Training is done with 200
-    epochs and SGD. The entire process is repeated 10 times with different parameter initializations.
+    epochs (except in the randomization experiment) and SGD. The entire process is repeated 10 times with different parameter initializations.
     :param size: list containing the number of neurons per hidden layer
     :param file_extension: string containing the extension for each file name
     :param MNIST: bool, if true, uses MNIST else CIFAR10
@@ -126,7 +126,10 @@ def compute_and_save_local_ed(size, file_extension=None, MNIST=False):
         criterion = nn.CrossEntropyLoss()
         optimizer = optim.SGD(convnet.parameters(), lr=lr, momentum=0.9)
         print('iteration: ', j)
-        epochs = 200
+        if random > 0 and MNIST:
+            epochs = 600
+        else:
+            epochs = 200
         for epoch in range(epochs):  # loop over the dataset multiple times
             running_loss = 0.0
             epoch_loss = 0
