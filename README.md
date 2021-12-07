@@ -14,7 +14,10 @@ And for NNGeometry, we recommend cloning the repo:
 
 ##
 ### [Local_ED_size](https://github.com/amyami187/local_effective_dimension/tree/main/Local_ED_size)
-This folder contains standalone Python files that pertain to a particular feedforward neural network of a specific size. Every network consists of 2 hidden layers with differing numbers of neurons per layer. Each Python file trains a network on either MNIST or CIFAR10 datasets and subsequently computes the test error. Thereafter, the effective dimension is estimated using the final (trained) parameters. This is experiment is repeated 10 times per network on the same data split, but with different parameter initializations, in order to get an idea of the standard deviation around the effective dimension and test error estimates.
+This folder contains two Python files. `ffnn_local_ed.py` contains all the functions necessary to train a feedforward neural network of a specified size on either MNIST or CIFAR10. The user has the freedom to specify the size of the model, as well as the data to train on. The `compute_and_save_local_ed()` function computes the final training error, the test error and the local effective dimension using trained parameters. This is inherently repeated 10 times on the same data split, but with different parameter initializations in order to get an idea of the standard deviation around the effective dimension and test error estimates. All results are then saved. 
+
+In our experiemnts, every network consists of 2 hidden layers with differing numbers of neurons per layer. The details of our specifications can be found in `run_experiments.py`.
+
 #### Expected run time
 Models range in size from approximately `d = 20 000` parameters to `d = 10 000 000`. Depending on the size of the data, the network and the chosen batch size, the main bottleneck is ultimately the estimation of the Fisher information matrix (which is `d x d` in size). We bypass this through use of the [KFAC approximation](https://arxiv.org/abs/1602.01407) of the Fisher, which has a [PyTorch implementation](https://nngeometry.readthedocs.io/en/latest/). The run time is thus greatly reduced and most of the computational time then goes to training the models. Our largest simulation takes at most 1 day to complete on 1 GPU with 1TB memory. 
 
