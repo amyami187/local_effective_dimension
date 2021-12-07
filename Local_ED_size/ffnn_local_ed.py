@@ -77,7 +77,7 @@ def load_data(MNIST=False):
 def compute_and_save_local_ed(size, file_extension=None, MNIST=False):
     """
     Trains a feedforward neural network with a specified size on the specified data set. Training is done with 200
-    epochs and SGD. The entire process is repeated 10 times with different parameter initializations.
+    epochs, batch size of 50 and the SGD optimizer. The entire process is repeated 10 times with different parameter initializations.
     :param size: list containing the number of neurons per hidden layer
     :param file_extension: string containing the extension for each file name
     :param MNIST: bool, if true, uses MNIST else CIFAR10
