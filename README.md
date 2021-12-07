@@ -13,19 +13,10 @@ And for NNGeometry, we recommend cloning the repo:
 `git clone https://github.com/amyami187/nngeometry.git`
 
 ##
-### [Local_ED_size](https://github.com/amyami187/local_effective_dimension/tree/main/Local_ED_size)
-This folder contains two Python files. `ffnn_local_ed.py` contains all the functions necessary to train a feedforward neural network of a specified size on either MNIST or CIFAR10. The user has the freedom to specify the size of the model, as well as the data to train on. The `compute_and_save_local_ed()` function computes the final training error, the test error and the local effective dimension using trained parameters. This is inherently repeated 10 times on the same data split, but with different parameter initializations in order to get an idea of the standard deviation around the effective dimension and test error estimates. All results are then saved. 
+### [Local_ED](https://github.com/amyami187/local_effective_dimension/tree/main/Local_ED)
+This folder contains two Python files. `ffnn_local_ed.py` contains all the functions necessary to train a feedforward neural network of a specified size on either MNIST or CIFAR10. The user has the freedom to specify the size of the model, as well as the data to train on. The `compute_and_save_local_ed()` function computes the final training error, the test error and the local effective dimension using trained parameters. This is inherently repeated 10 times on the same data split, but with different parameter initializations in order to get an idea of the standard deviation around the effective dimension and test error estimates. All results are then saved. The user also has freedom to choose a proportion at which to randomize the training data labels.
 
 In our experiemnts, every network consists of 2 hidden layers with differing numbers of neurons per layer. The details of our specifications can be found in `run_experiments.py`.
-
-#### Expected run time
-Models range in size from approximately `d = 20 000` parameters to `d = 10 000 000`. Depending on the size of the data, the network and the chosen batch size, the main bottleneck is ultimately the estimation of the Fisher information matrix (which is `d x d` in size). We bypass this through use of the [KFAC approximation](https://arxiv.org/abs/1602.01407) of the Fisher, which has a [PyTorch implementation](https://nngeometry.readthedocs.io/en/latest/). The run time is thus greatly reduced and most of the computational time then goes to training the models. Our largest simulation takes at most 1 day to complete on 1 GPU with 1TB memory. 
-
-### [Randomization_experiment](https://github.com/amyami187/local_effective_dimension/tree/main/Randomization_experiment)
-We follow the experiment originally outlined in [Zhang et al.](https://arxiv.org/abs/1611.03530) which increasingly randomizes training labels and computes the generalization (test) error thereafter. We do this for two models: first with approximately `d = 100 000` on MNIST and second with `d = 10 000 000` on CIFAR10. At each level of randomization, we also compute the effective dimension with the trained parameters. Each experiment is repeated 10 times.
-
-This folder contains standalone scripts for both models with increasing levels of randomization (in increments of 20 percent).
-
 
 ### [Gamma_analysis](https://github.com/amyami187/local_effective_dimension/tree/main/Gamma_analysis)
 We conduct a small search for the largest value of `gamma` such that generalization bound remains non-vacuous. For more details, see Table 2 and Appendix C in the "Effective dimension of machine learning models" manuscript. 
@@ -34,6 +25,10 @@ We use a model of the order `d = 100 000` trained on MNIST and calculate the eff
 
 ### [Sensitivity_to_samples](https://github.com/amyami187/local_effective_dimension/tree/main/Sensitivity_to_samples)
 In this script, we can specify the number of samples we wish to have to estimate the effective dimension for a model of the order `d = 10 000 000`. We use CIFAR10 and train the model. Thereafter, we draw samples from an epsilon ball around the trained parameters and estimate the effective dimension. 
+
+###
+## Expected run time
+Models range in size from approximately `d = 20 000` parameters to `d = 10 000 000`. Depending on the size of the data, the network and the chosen batch size, the main bottleneck is ultimately the estimation of the Fisher information matrix (which is `d x d` in size). We bypass this through use of the [KFAC approximation](https://arxiv.org/abs/1602.01407) of the Fisher, which has a [PyTorch implementation](https://nngeometry.readthedocs.io/en/latest/). The run time is thus greatly reduced and most of the computational time then goes to training the models. Our largest simulation takes at most 1 day to complete on 1 GPU with 1TB memory. 
 
 ________________________________________________________________________________________________________________________________________________________________
 ## License
