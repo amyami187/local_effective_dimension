@@ -27,9 +27,10 @@ class ClassicalNeuralNetwork(nn.Module):
         return x
 
 
-def load_data(MNIST=False):
+def load_data(random=0, MNIST=False):
     """
     Loads data needed for the experiment.
+    :param random: proportion at which to randomize the training labels
     :param MNIST: bool: if True, loads MNIST, else CIFAR10
     :return: trainloader, testloader, trainset and testset for the specified data set
     """
@@ -43,6 +44,14 @@ def load_data(MNIST=False):
     if MNIST:
         trainset = datasets.MNIST(root='./data/', train=True, download=True,
                                   transform=transforms.ToTensor())
+
+        random_perc = random
+        num_random_points = int(random_perc * len(trainset))
+        for i in range(num_random_points):
+            idx = torch.randint(0, len(trainset) - 1, (1,))
+            trainset.targets[idx:idx + 1] = torch.randint(0, 9, (1,))
+        for i in range(len(trainset)):
+            trainset.targets[i:i + 1] = torch.tensor(trainset.targets[i:i + 1])
 
         trainloader = DataLoader(
             dataset=trainset,
@@ -58,6 +67,14 @@ def load_data(MNIST=False):
     else:
         trainset = datasets.CIFAR10(root='./data/', train=True, download=True,
                                   transform=transform)
+
+        random_perc = random
+        num_random_points = int(random_perc * len(trainset))
+        for i in range(num_random_points):
+            idx = torch.randint(0, len(trainset) - 1, (1,))
+            trainset.targets[idx:idx + 1] = torch.randint(0, 9, (1,))
+        for i in range(len(trainset)):
+            trainset.targets[i:i + 1] = torch.tensor(trainset.targets[i:i + 1])
 
         trainloader = DataLoader(
             dataset=trainset,
@@ -77,7 +94,7 @@ def load_data(MNIST=False):
 def compute_and_save_local_ed(size, file_extension=None, MNIST=False):
     """
     Trains a feedforward neural network with a specified size on the specified data set. Training is done with 200
-    epochs, batch size of 50 and the SGD optimizer. The entire process is repeated 10 times with different parameter initializations.
+    epochs and SGD. The entire process is repeated 10 times with different parameter initializations.
     :param size: list containing the number of neurons per hidden layer
     :param file_extension: string containing the extension for each file name
     :param MNIST: bool, if true, uses MNIST else CIFAR10
