@@ -1,5 +1,7 @@
 # Effective dimension of machine learning models
 
+[![DOI](https://zenodo.org/badge/432957762.svg)](https://zenodo.org/badge/latestdoi/432957762)
+
 In this repository, there are several folders containing code to reproduce the results/figures from 
 the manuscript titled "Effective dimension of machine learning models" (arXiv: to be linked soon). All code was generated using Python v3.7 and PyTorch v1.3.1 which can be pip installed. We add an addiitonal function to the [NNGeometry](https://nngeometry.readthedocs.io/en/latest/) library and provide the recommended installation below. The details of the implementation are contained in the arXiv paper with an explanation of each folder's contents and installation here.
 
