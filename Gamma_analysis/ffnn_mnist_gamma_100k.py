@@ -135,7 +135,7 @@ FI = d * eigs / tr
 ns = [500000, 1000000, 2000000, 5000000, 10000000]
 for number in ns:
     # specify starting gamma value
-    gamma = 0.001
+    gamma = 0.003
     effdim = ed(number, gamma)
     RS = RHS(gamma, number, effdim)
     print('###########################################################')
@@ -143,12 +143,3 @@ for number in ns:
     print('###########################################################')
     print('gamma = ', gamma, 'and RHS = ', RS)
     print('effective dim = ', effdim)
-    while RS <= 0:
-        gamma = gamma + 0.0001
-        if gamma > 1:
-            break
-        effdim = ed(number, gamma)
-        RS = RHS(gamma, number, effdim)
-        print('gamma = ', gamma, ' and RHS = ', RS)
-        print('effective dim = ', effdim)
-
