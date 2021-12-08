@@ -19,7 +19,7 @@ This folder contains two Python files. `functions.py` contains all the functions
 In our experiemnts, every network consists of 2 hidden layers with differing numbers of neurons per layer. The details of our specifications can be found in `run_experiments.py`.
 
 ### [Gamma_analysis](https://github.com/amyami187/local_effective_dimension/tree/main/Gamma_analysis)
-We conduct a small search for the largest value of `gamma` such that generalization bound remains non-vacuous. For more details, see Table 2 and Appendix C in the "Effective dimension of machine learning models" manuscript. 
+We fix `gamma = 0.003` such that generalization bound for a model trained on MNIST data remains non-vacuous. For more details, see Table 2 and Appendix C in the "Effective dimension of machine learning models" manuscript. 
 
 We use a model of the order `d = 100 000` trained on MNIST and calculate the effective dimension over different values for `n` (the number of data available as per the definition of the effective dimension). We begin by choosing `gamma = 0.001` and increase it by increments of `0.0001` till the bound becomes vacuous. 
 
